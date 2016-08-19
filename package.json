@@ -1,0 +1,29 @@
+{
+  "name": "Document-Management-System-API-",
+  "version": "1.0.0",
+  "description": ">This document management system manages documents users and user roles.",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-mkwamboka/Document-Management-System-API-.git"
+  },
+  "keywords": [],
+  "author": "Monicah Kwamboka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-mkwamboka/Document-Management-System-API-/issues"
+  },
+  "homepage": "https://github.com/andela-mkwamboka/Document-Management-System-API-#readme",
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb": "^11.0.0",
+    "eslint-plugin-import": "^1.14.0"
+  }
+}

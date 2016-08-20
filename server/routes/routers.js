@@ -32,7 +32,7 @@ router.route('/documents')
   .get(docs.getAll); // Find matching instances of documents.
 
 router.route('/documents/:doc_id')
-  .get(docs.getDOc) // Find document.
+  .get(docs.getDoc) // Find document.
   .put(docs.update) // Update document.
   .delete(docs.delete); // Delete document
 

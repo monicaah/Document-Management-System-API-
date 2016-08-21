@@ -1,6 +1,8 @@
 // Dependancies
 const express = require('express');
 const bodyParser = require('body-parser');
+// DB connection
+require('./server/models/db');
 
 const app = express();
 

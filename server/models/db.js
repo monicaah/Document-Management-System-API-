@@ -40,3 +40,6 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+// Add models to api
+require('./users');

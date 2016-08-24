@@ -1,6 +1,9 @@
 // Dependancies
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const test = require('./server/middleware/test');
+
 // DB connection
 require('./server/models/db');
 
@@ -13,6 +16,9 @@ const apiRoutes = require('./server/routes/routers');
 // Configure express to use bodyParser() to get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Middleware
+app.use(test.index);
 
 // Register routes
 app.use('/', apiRoutes);

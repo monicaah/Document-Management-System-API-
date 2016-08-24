@@ -1,6 +1,9 @@
+require('dotenv').load();
+
 module.exports = {
   db: {
-    development: 'mongodb://localhost:27017/dms',
-    test: 'mongodb://localhost:27017/dms-test',
+    development: process.env.MONGODB_DEV,
+    test: process.env.MONGODB_TEST,
   },
+  sessionSecret: process.env.SESSION_SECRET,
 };

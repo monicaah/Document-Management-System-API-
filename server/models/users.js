@@ -5,7 +5,10 @@ const roleSchema = require('./roles');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    type: Schema.Types.ObjectId,
+    select: false,
+  },
   username: {
     type: String,
     required: true,
@@ -32,4 +35,4 @@ const userSchema = new Schema({
   docs: [docSchema],
 });
 
-module.exports = userSchema;
+mongoose.model('Users', userSchema);

@@ -37,7 +37,7 @@ router.route('/documents/:doc_id')
   .delete(docs.delete); // Delete document
 
 // USER  DOCUMENTS
-router.route('users/:user_id/documents')
+router.route('/users/:user_id/documents')
   .get(docs.find); // Find all documents belonging to the user.
 
 module.exports = router;

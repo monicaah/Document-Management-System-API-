@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const docSchema = new Schema({
   _id: Schema.Types.ObjectId,
-  ownerId: 2,
+  ownerId: Number,
   title: {
     type: String,
     required: true,

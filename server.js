@@ -13,14 +13,11 @@ const apiRoutes = require('./server/routes/routers');
 
 // Express
 // Configure express to use bodyParser() to get the data from a POST
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// router.use(auth.authenticate);
+app.use(bodyParser.json());
 
 // Middleware
 app.use(test.index);
-
 
 // Register routes
 app.use('/', apiRoutes);

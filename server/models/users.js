@@ -26,15 +26,25 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    match: [/.+\@.+\..+/, 'Please fill a valid email address'],
   },
   password: {
     type: String,
     required: true,
     select: false,
   },
-  role: [roleSchema],
+  role: {type: [roleSchema], default: [{title: 'user'}]},
   docs: [docSchema],
 });
+
+// Validate email
+// userSchema.path('email').validate = (email) => {
+//  return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email.text); // Assuming email has a text attribute
+// };
+// userSchema.path('email').validate((email) => {
+//    var emailRegex = ;
+//    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email.text); // Assuming email has a text attribute
+// }, 'The e-mail field cannot be empty.')
 
 // Hash the password before the user is saved
 userSchema.pre('save', function (next) {
@@ -51,7 +61,7 @@ userSchema.pre('save', function (next) {
 });
 
  // Compare a given password with the database hash
-userSchema.methods.comparePassword = (password) => {
+userSchema.methods.comparePassword = function(password) {
   const user = this;
   return bcrypt.compareSync(password, user.password);
 };

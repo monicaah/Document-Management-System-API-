@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const docSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  ownerId: Number,
+  ownerId: Schema.Types.ObjectId,
   title: {
     type: String,
     required: true,

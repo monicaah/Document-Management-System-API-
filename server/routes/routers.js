@@ -1,21 +1,39 @@
 const router = require('express').Router();
+const expressJWT = require('express-jwt');
 
 // Controllers
 const test = require('../controllers/index');
 const users = require('../controllers/usersCtrl');
 const docs = require('../controllers/docsCtrl');
 
+// Config
+const config = require('../models/dbconfig');
+
+const superSecret = config.sessionSecret;
+
+// Middleware
+// const auth = require('../middleware/test');
+
 router.get('/', test.index);
 
-// Define routes and mapping them to controllers
+// USE EXPRESS JWT
+router.use(expressJWT({ secret: superSecret }).unless({ path: ['/users/login'] }));
 
+
+// Define routes and mapping them to controllers
 // USER ENDPOINTS
 router.route('/users')
-  .post(users.create) // Creates a new user.
-  .get(users.getAll); // Find matching instances of user.
+  .post(users.create); // Creates a new user.
 
 router.route('/users/login')
   .post(users.login); // Logs a user in.
+
+// Middleware to create access token
+// router.use(auth.authenticate);
+
+// Can only be accessed after login
+router.route('/users')
+  .get(users.getAll); // Find matching instances of user.
 
 router.route('/users/logout')
   .post(users.logout); // Logs a user out.

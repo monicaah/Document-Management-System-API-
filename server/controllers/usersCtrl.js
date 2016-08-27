@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const superSecret = require('../models/dbconfig');
+const config = require('../models/dbconfig')
+const setHeader = require('setheader');
+
+const superSecret = config.sessionSecret;
+
 const User = mongoose.model('Users');
 
 const sendJsonResponse = (res, status, content) => {
@@ -22,9 +26,10 @@ module.exports = {
     user.email = req.body.email;
     user.password = req.body.password;
 
-    // Save user and check for errors
+    // save user and check for errors
     user.save((err) => {
       if (err) {
+        // Duplicate entry
         if (err.code === 11000) {
           return sendJsonResponse(res, 400, {
             message: 'A user with that username already exists.',
@@ -48,37 +53,35 @@ module.exports = {
   },
   login: (req, res) => {
     User
-    .find({ username: req.body.username })
-    .select('name username password')
+    // Select username from request and find in db
+    .findOne({ username: req.body.username })
+    .select('password')
     .exec((err, user) => {
-      console.log('1' + err);
       if (err) sendJsonResponse(res, 404, err);
       if (!user) {
-        console.log('2' + err);
         sendJsonResponse(res, 404, { message: 'User not found.' });
       } else if (user) {
+        // Check if password matches
         const validPassword = user.comparePassword(req.body.password);
         if (!validPassword) {
-          console.log('3' + err);
           sendJsonResponse(res, 404, { message: 'Authentication failed. Wrong password.' });
-        } else {
-          console.log('4' + err);
-          // Create token
-          const token = jwt.sign({
-            name: user.name,
-            username: user.username,
-          }, superSecret, {
-            expiresInMinutes: 1440,
-          });
-
-          // Return token
-          sendJsonResponse(res, 200, token);
         }
+
+        // Create token
+        const token = jwt.sign(user._id, superSecret, {
+          expiresIn: 60 * 60 * 24, // 24 hours
+        });
+        sendJsonResponse(res, 200, {
+          message: 'Enjoy your token!',
+          token: token,
+        });
       }
     });
   },
   logout: (req, res) => {
-    res.send('Logout');
+    sendJsonResponse(res, 200, {
+      message: 'Bye',
+    });
   },
   getUser: (req, res) => {
     User.findById(req.params.user_id)
@@ -139,7 +142,7 @@ module.exports = {
       });
     }
     sendJsonResponse(res, 200, {
-      message: 'No userId',
+      message: 'Successfully deleted',
     });
   },
 };

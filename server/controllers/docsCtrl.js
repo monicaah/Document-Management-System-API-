@@ -9,30 +9,8 @@ const sendJsonResponse = (res, status, content) => {
 
 module.exports = {
   // User is the parent document
-  create: (req, res, user) => {
-    if (!user) {
-      sendJsonResponse(res, 403, {
-        message: 'You need to be logged in to create document',
-      });
-    } else {
-      // Data to be saved pushed into subdocument array
-      Docs.docs.push({
-        title: req.body.title,
-        content: req.body.content,
-      });
-      // Save document
-      Docs.save((err, docs) => {
-        let thisDoc;
-        if (err) {
-          sendJsonResponse(res, 400, err);
-        } else {
-          updatedocs(docs._id); // Update list of documents
-          // Retrieve last review added to array and return it as JSON confirmation response
-          thisDoc = user.docs[user.docs.length - 1];
-          sendJsonResponse(res, 201, thisDoc);
-        }
-      });
-    }
+  create: (req, res) => {
+    res.send(req.decoded);
   },
   getAll: (req, res) => {
     res.send('GetALL');

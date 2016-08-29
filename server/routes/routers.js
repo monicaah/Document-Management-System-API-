@@ -12,7 +12,7 @@ const config = require('../models/dbconfig');
 const superSecret = config.sessionSecret;
 
 // Middleware
-// const auth = require('../middleware/test');
+const auth = require('../middleware/test');
 
 router.get('/', test.index);
 
@@ -28,10 +28,10 @@ router.route('/users')
 router.route('/users/login')
   .post(users.login); // Logs a user in.
 
-// Middleware to create access token
-// router.use(auth.authenticate);
 
-// Can only be accessed after login
+// middleware
+router.use(auth.authenticate);
+
 router.route('/users')
   .get(users.getAll); // Find matching instances of user.
 

@@ -37,8 +37,12 @@ module.exports = {
         }
         return sendJsonResponse(res, 404, err);
       }
+      const token = jwt.sign(user._id, superSecret, {
+        expiresIn: 60 * 60 * 24, // 24 hours
+      });
       return sendJsonResponse(res, 200, {
         message: 'User saved',
+        token: token,
       });
     });
   },
@@ -55,7 +59,7 @@ module.exports = {
     User
     // Select username from request and find in db
     .findOne({ username: req.body.username })
-    .select('password')
+    .select('password _id')
     .exec((err, user) => {
       if (err) sendJsonResponse(res, 404, err);
       if (!user) {
@@ -66,9 +70,11 @@ module.exports = {
         if (!validPassword) {
           sendJsonResponse(res, 404, { message: 'Authentication failed. Wrong password.' });
         }
-
+        const details = ({
+          _id: user._id,
+        });
         // Create token
-        const token = jwt.sign(user._id, superSecret, {
+        const token = jwt.sign(details, superSecret, {
           expiresIn: 60 * 60 * 24, // 24 hours
         });
         sendJsonResponse(res, 200, {

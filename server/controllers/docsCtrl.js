@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const config = require('../models/dbconfig');
 
+const superSecret = config.sessionSecret;
 const Docs = mongoose.model('Users');
 
 const sendJsonResponse = (res, status, content) => {
@@ -8,9 +10,8 @@ const sendJsonResponse = (res, status, content) => {
 };
 
 module.exports = {
-  // User is the parent document
   create: (req, res) => {
-    res.send(req.decoded);
+    const ownerId = req.decoded._id;
   },
   getAll: (req, res) => {
     res.send('GetALL');

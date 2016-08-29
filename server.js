@@ -16,11 +16,8 @@ const apiRoutes = require('./server/routes/routers');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// router.use(auth.authenticate);
-
 // Middleware
 app.use(test.index);
-
 
 // Register routes
 app.use('/', apiRoutes);

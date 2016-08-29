@@ -35,6 +35,5 @@
     "express-jwt": "^5.0.0",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
-    "setheader": "0.0.4"
   }
 }

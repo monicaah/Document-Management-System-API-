@@ -22,7 +22,6 @@ module.exports = {
   authenticate: (req, res, next) => {
     // Check header or url parameters or post parameters for token
     const token = req.headers.authorization.split(' ')[1];
-    console.log(token);
     // decode token
     if (token) {
       // Verify secret and check expires time

@@ -17,7 +17,7 @@ const auth = require('../middleware/test');
 router.get('/', test.index);
 
 // USE EXPRESS JWT
-router.use(expressJWT({ secret: superSecret }).unless({ path: ['/users/login'] }));
+router.use(expressJWT({ secret: superSecret }).unless({ path: ['/users/login', '/users'] }));
 
 
 // Define routes and mapping them to controllers

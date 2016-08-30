@@ -37,12 +37,8 @@ module.exports = {
         }
         return sendJsonResponse(res, 404, err);
       }
-      const token = jwt.sign(user._id, superSecret, {
-        expiresIn: 60 * 60 * 24, // 24 hours
-      });
       return sendJsonResponse(res, 200, {
-        message: 'User saved',
-        token: token,
+        message: 'User saved'
       });
     });
   },
@@ -72,6 +68,7 @@ module.exports = {
         }
         const details = ({
           _id: user._id,
+          username: req.body.username,
         });
         // Create token
         const token = jwt.sign(details, superSecret, {

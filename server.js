@@ -8,13 +8,13 @@ require('./server/models/db');
 
 const app = express();
 
+// Configure express to use bodyParser() to get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Routes
 const apiRoutes = require('./server/routes/routers');
 
-// Express
-// Configure express to use bodyParser() to get the data from a POST
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware
 app.use(test.index);

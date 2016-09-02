@@ -22,5 +22,4 @@ app.use(test.index);
 // Register routes
 app.use('/', apiRoutes);
 
-// Start server
-app.listen(process.env.PORT || 8080);
+module.exports = app;

@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const app = require('./../server');
+
+// Start server
+app.listen(8080, () => {
+  console.log('Listening to port')
+});

@@ -4,11 +4,11 @@
   "description": ">This document management system manages documents users and user roles.",
   "main": "server.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "mocha test/server",
+    "start": "./bin/www"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,9 @@
   "devDependencies": {
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^11.0.0",
-    "eslint-plugin-import": "^1.14.0"
+    "eslint-plugin-import": "^1.14.0",
+    "mocha": "^3.0.2",
+    "supertest": "^2.0.0"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",

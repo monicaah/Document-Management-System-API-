@@ -56,7 +56,7 @@ module.exports = {
       .find()
       .select('-role -docs -__v')
       .exec((err, user) => {
-        if (err) res.send(err);
+        if (err) sendJsonResponse(res, 404, err);
         return sendJsonResponse(res, 200, user);
       });
   },

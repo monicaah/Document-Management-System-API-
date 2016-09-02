@@ -8,7 +8,6 @@ const shutDown = (msg, callback) => {
     callback();
   });
 };
-
 // Open mongoose connection
 mongoose.connect(dbConfig.db[app.settings.env]);
 
@@ -21,7 +20,7 @@ mongoose.connection.on('error', (err) => {
   console.log('Mongoose connection error ' + err);
 });
 
-mongoose.connection.on('sidconnected', () => {
+mongoose.connection.on('disconnected', () => {
   console.log('Mongoose disconnected');
 });
 

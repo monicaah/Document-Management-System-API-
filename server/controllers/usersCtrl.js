@@ -9,7 +9,7 @@ const User = mongoose.model('Users');
 
 const sendJsonResponse = (res, status, content) => {
   res.status(status);
-  res.json(content);
+  res.send(content);
 };
 
 // exec method executes the query and passes a callback function that will run
@@ -25,6 +25,16 @@ module.exports = {
     user.name.last = req.body.last;
     user.email = req.body.email;
     user.password = req.body.password;
+
+    if (req.body.role) {
+      user.role.push({
+        title: req.body.role,
+      });
+    } else {
+      user.role.push({
+        title: 'user',
+      });
+    }
 
     // save user and check for errors
     user.save((err) => {
@@ -91,9 +101,12 @@ module.exports = {
     });
   },
   logout: (req, res) => {
-    sendJsonResponse(res, 200, {
-      message: 'Bye',
-    });
+    if (req.decoded) {
+      delete req.decoded;
+      sendJsonResponse(res, 200, {
+        message: 'Bye',
+      });
+    }
   },
   getUser: (req, res) => {
     User.findById(req.params.user_id)

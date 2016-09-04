@@ -53,7 +53,8 @@ module.exports = {
   },
   getDoc: (req, res) => {
     const ownerId = req.decoded._id;
-    Docs.findOne({ _id: ownerId },
+    Docs
+    .findOne({ _id: ownerId },
       (err, user) => {
         if (user) {
           if (err) sendJsonResponse(res, 404, err);
@@ -67,7 +68,7 @@ module.exports = {
           }
           sendJsonResponse(res, 200, doc);
         }
-    });
+      });
   },
   update: (req, res) => {
     const ownerId = req.decoded._id;
@@ -76,28 +77,30 @@ module.exports = {
     .exec((err, userdocs) => {
       userdocs.docs.forEach((doc) => {
         if (doc._id == req.params.doc_id) {
-          doc.title = req.body.title;
-          doc.content = req.body.content;
-          doc.save((error, docs) => {
-            console.log(docs);
-            if (error) sendJsonResponse(res, 400, error);
-              sendJsonResponse(res, 200, docs);
-            });
-          } else {
-            sendJsonResponse(res, 400, err);
-          }
-        });
+          if (req.body.title) doc.title = req.body.title;
+          if (req.body.content) doc.content = req.body.content;
+          console.log(doc);
+          doc.update((error) => {
+              if (error) sendJsonResponse(res, 400, error);
+              sendJsonResponse(res, 200, doc);
+          });
+        }
+        sendJsonResponse(res, 400, err);
       });
+    });
   },
   delete: (req, res) => {
     const ownerId = req.decoded._id;
     Docs
     .findById(ownerId)
     .exec((err, user) => {
+      console.log(user.docs)
       if (err) sendJsonResponse(res, 404, err);
-      user.docs.findByIdAndRemove(req.params.doc_id, (error, docs) => {
-        if (error) sendJsonResponse(res, 201, error);
-        console.log(docs);
+      console.log(user.docs.findById({ _id: req.params.doc_id }))
+      user.docs.remove({ _id: req.params.doc_id }, (error, docs) => {
+        if (error) sendJsonResponse(res, 404, error);
+        sendJsonResponse(res, 200, docs);
+        console.log(docs)
       });
     });
   },

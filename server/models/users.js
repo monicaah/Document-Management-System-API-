@@ -33,7 +33,7 @@ const userSchema = new Schema({
     required: true,
     select: false,
   },
-  role: {type: [roleSchema], default: [{title: 'user'}]},
+  role: [roleSchema],
   docs: [docSchema],
 });
 

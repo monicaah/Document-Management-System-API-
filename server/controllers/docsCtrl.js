@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('../models/dbconfig');
 
-const superSecret = config.sessionSecret;
 const Docs = mongoose.model('Users');
 
 const sendJsonResponse = (res, status, content) => {
@@ -75,18 +73,18 @@ module.exports = {
     Docs
     .findOne({ _id: ownerId })
     .exec((err, userdocs) => {
-      userdocs.docs.forEach((doc) => {
+      let docArray = userdocs.docs.map((doc) => {
         if (doc._id == req.params.doc_id) {
           if (req.body.title) doc.title = req.body.title;
           if (req.body.content) doc.content = req.body.content;
-          console.log(doc);
-          doc.update((error) => {
-              if (error) sendJsonResponse(res, 400, error);
-              sendJsonResponse(res, 200, doc);
-          });
         }
-        sendJsonResponse(res, 400, err);
+        return doc;
       });
+      userdocs.docs = docArray;
+      userdocs.save((error, userDocs) => {
+        if (error) sendJsonResponse(res, 404, err);
+        sendJsonResponse(res, 200, userDocs.docs);
+      })
     });
   },
   delete: (req, res) => {
@@ -94,13 +92,15 @@ module.exports = {
     Docs
     .findById(ownerId)
     .exec((err, user) => {
-      console.log(user.docs)
-      if (err) sendJsonResponse(res, 404, err);
-      console.log(user.docs.findById({ _id: req.params.doc_id }))
-      user.docs.remove({ _id: req.params.doc_id }, (error, docs) => {
-        if (error) sendJsonResponse(res, 404, error);
-        sendJsonResponse(res, 200, docs);
-        console.log(docs)
+      const doc = user.docs.id(req.params.doc_id).remove();
+      user.save((error) => {
+        if (error) {
+          res.send(error);
+        } else {
+          res.send({
+            message: 'Removed',
+          });
+        }
       });
     });
   },

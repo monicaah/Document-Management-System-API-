@@ -37,15 +37,6 @@ const userSchema = new Schema({
   docs: [docSchema],
 });
 
-// Validate email
-// userSchema.path('email').validate = (email) => {
-//  return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email.text); // Assuming email has a text attribute
-// };
-// userSchema.path('email').validate((email) => {
-//    var emailRegex = ;
-//    return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email.text); // Assuming email has a text attribute
-// }, 'The e-mail field cannot be empty.')
-
 // Hash the password before the user is saved
 userSchema.pre('save', function (next) {
   const user = this;

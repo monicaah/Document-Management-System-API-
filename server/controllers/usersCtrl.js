@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const config = require('../models/dbconfig')
-const setHeader = require('setheader');
+const config = require('./../config/dbconfig');
 
 const superSecret = config.sessionSecret;
 

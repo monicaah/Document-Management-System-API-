@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const test = require('./server/middleware/test');
 
 // DB connection
-require('./server/models/db');
+require('./server/config/db');
 
 const app = express();
 
@@ -22,4 +22,8 @@ app.use(test.index);
 // Register routes
 app.use('/', apiRoutes);
 
+// Start server
+app.listen(process.env.PORT || 8080, () => {
+  console.log('Listening to port ' , port);
+});
 module.exports = app;

@@ -4,7 +4,6 @@ const roleSchema = require('./roles');
 const bcrypt = require('bcrypt-nodejs');
 
 const Schema = mongoose.Schema;
-// const id = mongoose.Types.ObjectId();
 
 const userSchema = new Schema({
   username: {
@@ -52,7 +51,7 @@ userSchema.pre('save', function (next) {
 });
 
  // Compare a given password with the database hash
-userSchema.methods.comparePassword = function(password) {
+userSchema.methods.comparePassword = function (password) {
   const user = this;
   return bcrypt.compareSync(password, user.password);
 };

@@ -7,12 +7,12 @@ const users = require('../controllers/usersCtrl');
 const docs = require('../controllers/docsCtrl');
 
 // Config
-const config = require('../models/dbconfig');
+const config = require('./../config/dbconfig');
 
 const superSecret = config.sessionSecret;
 
 // Middleware
-const auth = require('../middleware/test');
+const auth = require('../middleware/middleware');
 
 router.get('/', test.index);
 
@@ -29,7 +29,7 @@ router.route('/users/login')
   .post(users.login); // Logs a user in.
 
 
-// middleware
+// Middleware for authentication
 router.use(auth.authenticate);
 
 router.route('/users')

@@ -1,5 +1,5 @@
 module.exports = {
   index: (req, res) => {
-    res.send('Index');
+    res.send('Document management API');
   },
 };

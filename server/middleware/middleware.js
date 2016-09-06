@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('../models/dbconfig');
+const config = require('../config/dbconfig');
 
 const superSecret = config.sessionSecret;
 

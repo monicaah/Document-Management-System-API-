@@ -41,4 +41,4 @@ process.on('SIGINT', () => {
 });
 
 // Add models to api
-require('./users');
+require('./../models/users');

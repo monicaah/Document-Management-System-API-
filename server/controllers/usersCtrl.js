@@ -63,7 +63,7 @@ module.exports = {
   getAll: (req, res) => {
     User
       .find()
-      .select('-role -docs -__v')
+      .select('-docs -__v')
       .exec((err, user) => {
         if (err) sendJsonResponse(res, 404, err);
         return sendJsonResponse(res, 200, user);
@@ -95,6 +95,7 @@ module.exports = {
         sendJsonResponse(res, 200, {
           message: 'Enjoy your token!',
           token: token,
+          user: user,
         });
       }
     });
@@ -109,7 +110,7 @@ module.exports = {
   },
   getUser: (req, res) => {
     User.findById(req.params.user_id)
-    .select('-role -docs -__v')
+    .select('-docs -__v')
     .exec((err, user) => {
       if (!user) {
         return sendJsonResponse(res, 404, {

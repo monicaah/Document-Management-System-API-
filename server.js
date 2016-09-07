@@ -1,7 +1,7 @@
 // Dependancies
 const express = require('express');
 const bodyParser = require('body-parser');
-const test = require('./server/middleware/test');
+const test = require('./server/middleware/middleware');
 
 // DB connection
 require('./server/config/db');
@@ -24,6 +24,7 @@ app.use('/', apiRoutes);
 
 // Start server
 app.listen(process.env.PORT || 8080, () => {
-  console.log('Listening to port ' , port);
+  console.log('Listening to port');
 });
+
 module.exports = app;

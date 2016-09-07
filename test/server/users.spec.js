@@ -81,7 +81,6 @@ describe('Users', () => {
       .get('/users')
       .set({ Authorization: 'Bearer ' + token })
       .end((err, res) => {
-        if (err) throw err;
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
         expect(res.body[0]).to.be.a('object');
@@ -170,7 +169,6 @@ describe('Users', () => {
       .get('/users')
       .set({ Authorization: 'Bearer ' + token })
       .end((err, res) => {
-        if (err) throw err;
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
         expect(res.body.length).to.equal(1);
@@ -192,5 +190,4 @@ describe('Users', () => {
         });
     });
   });
-
 });

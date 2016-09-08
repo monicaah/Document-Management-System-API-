@@ -179,18 +179,18 @@ describe('Users', () => {
     });
   });
 
-  // describe('DELETE', () => {
-  //   it('/users/<id>: Delete user.', done => {
-  //     const userID = userDetails.user._id;
-  //     chai.request(api)
-  //       .delete('/users/' + userID)
-  //       .set({ Authorization: 'Bearer ' + token })
-  //       .end((err, res) => {
-  //         expect(res.status).to.equal(200);
-  //         expect(res.body.message).to.equal('Successfully deleted');
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('DELETE', () => {
+    it('/users/<id>: Delete user.', done => {
+      const userID = userDetails.user._id;
+      chai.request(api)
+        .delete('/users/' + userID)
+        .set({ Authorization: 'Bearer ' + token })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('Successfully deleted');
+          done();
+        });
+    });
+  });
 
 });

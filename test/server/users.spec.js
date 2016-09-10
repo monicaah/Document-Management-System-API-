@@ -41,7 +41,6 @@ describe('Users', () => {
         .post('/users')
         .send(user)
         .end((err, res) => {
-          expect(err).to.not.exist;
           expect(res).to.be.a('object');
           expect(res.status).to.equal(200);
           expect(res.body).to.have.all.keys('message', 'token');
@@ -171,7 +170,7 @@ describe('Users', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
-        expect(res.body.length).to.equal(1);
+        expect(res.body.length).to.equal(2);
         done();
       });
     });

@@ -73,7 +73,7 @@ module.exports = {
     User
     // Select username from request and find in db
     .findOne({ username: req.body.username })
-    .select('password _id')
+    .select('password _id docs')
     .exec((err, user) => {
       if (err) sendJsonResponse(res, 404, err);
       if (!user) {

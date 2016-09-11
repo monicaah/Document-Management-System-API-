@@ -37,6 +37,7 @@
     "should": "^11.1.0"
   },
   "dependencies": {
+    "acl": "^0.4.9",
     "bcrypt": "^0.8.7",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
@@ -47,6 +48,7 @@
     "express-jwt": "^5.0.0",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
+    "mongoose-role": "^2.0.0",
     "supertest": "^2.0.0"
   }
 }

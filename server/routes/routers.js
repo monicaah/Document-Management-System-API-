@@ -13,6 +13,7 @@ const superSecret = config.sessionSecret;
 
 // Middleware
 const auth = require('../middleware/middleware');
+const hasAccess = require('../middleware/middleware');
 
 router.get('/', test.index);
 
@@ -33,7 +34,7 @@ router.route('/users/login')
 router.use(auth.authenticate);
 
 router.route('/users')
-  .get(users.getAll); // Find matching instances of user.
+  .get(hasAccess.accessLevel, users.getAll); // Find matching instances of user.
 
 router.route('/users/logout')
   .post(users.logout); // Logs a user out.
@@ -47,7 +48,7 @@ router.route('/users/:user_id')
 // DOCUMENT ENDPOINTS
 router.route('/documents')
   .post(docs.create) // Creates a new documents.
-  .get(docs.getAll); // Find matching instances of documents.
+  .get(hasAccess.accessLevel, docs.getAll); // Find matching instances of documents.
 
 router.route('/documents/:doc_id')
   .get(docs.getDoc) // Find document.

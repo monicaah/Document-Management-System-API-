@@ -49,6 +49,7 @@ module.exports = {
       const details = ({
         _id: user._id,
         username: req.body.username,
+        role: req.body.role,
       });
       // Create token
       const token = jwt.sign(details, superSecret, {
@@ -87,6 +88,7 @@ module.exports = {
         const details = ({
           _id: user._id,
           username: req.body.username,
+          role: req.body.role,
         });
         // Create token
         const token = jwt.sign(details, superSecret, {

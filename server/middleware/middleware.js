@@ -14,6 +14,7 @@ module.exports = {
     };
     next();
   },
+  // User authentication using token
   authenticate: (req, res, next) => {
     // Check header or url parameters or post parameters for token
     const token = req.headers.authorization.split(' ')[1];
@@ -37,6 +38,18 @@ module.exports = {
         message: 'No token found',
       });
     }
-  }
-
+  },
+  // Role accessLevel
+  accessLevel: (req, res, next) => {
+    const role = req.decoded.role;
+    console.log(role);
+    if (role != 'admin') {
+      res.status(403).json({
+        success: false,
+        message: 'Access Denied'
+      });
+    } else {
+      next();
+    }
+  },
 };

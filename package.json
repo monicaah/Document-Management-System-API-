@@ -4,11 +4,12 @@
   "description": ">This document management system manages documents users and user roles.",
   "main": "server.js",
   "directories": {
-    "test": "test"
+    "test": "tests"
   },
   "scripts": {
     "test": "NODE_ENV=test mocha test/server",
-    "start": "./bin/www"
+    "start": "node server.js",
+    "coverage": "istanbul cover mocha test/server"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-standard": "^2.0.0",
     "mocha": "^3.0.2",
+    "mocha-istanbul": "^0.3.0",
     "should": "^11.1.0"
   },
   "dependencies": {

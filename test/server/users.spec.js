@@ -68,7 +68,7 @@ describe('Users', () => {
       chai.request(api)
       .post('/users/logout')
       .end((err, res) => {
-        expect(res.header.Authorization).to.not.exist;
+        expect(res.header).not.to.have.ownPropertyDescriptor('Authorization');
         done();
       });
     });

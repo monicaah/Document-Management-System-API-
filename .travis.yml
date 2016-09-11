@@ -4,12 +4,14 @@ node_js:
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
-      - xvfb
-      - libgnome-keyring-dev
-services: mongodb
-env: "MONGODB_VERSION=\"3.2.7\""
+    - gcc-4.8
+    - g++-4.8
+services:
+  - mongodb
+env:
+  - MONGODB_VERSION=\"3.2.7\"
+  - TRAVIS=travis CXX=g++-4.8
 script:
   - npm run coverage

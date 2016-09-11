@@ -9,7 +9,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test/server",
     "start": "node server.js",
-    "coverage": "istanbul cover mocha test/server"
+    "coverage": "./node_modules/istanbul cover mocha test/server"
   },
   "repository": {
     "type": "git",

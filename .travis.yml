@@ -1,6 +1,15 @@
 language: node_js
 node_js:
   - "6.2.1"
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+      - xvfb
+      - libgnome-keyring-dev
 services: mongodb
 env: "MONGODB_VERSION=\"3.2.7\""
-script: npm run coverage
+script:
+  - npm run coverage

@@ -17,6 +17,7 @@ describe('Users', () => {
     last: 'Kwamboka',
     email: 'mona@gmail.com',
     password: '1234',
+    role: 'admin',
   };
 
   User.collection.drop();
@@ -80,6 +81,7 @@ describe('Users', () => {
       .get('/users')
       .set({ Authorization: 'Bearer ' + token })
       .end((err, res) => {
+        if (err) throw err;
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
         expect(res.body[0]).to.be.a('object');
@@ -170,7 +172,7 @@ describe('Users', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
-        expect(res.body.length).to.equal(2);
+        expect(res.body.length).to.equal(3);
         done();
       });
     });

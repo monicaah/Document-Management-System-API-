@@ -18,6 +18,7 @@ describe('Documents', () => {
     last: 'Hussein',
     email: 'saddam@gmail.com',
     password: '1234',
+    role: 'admin',
   };
   const document = {
     title: 'This is a title',

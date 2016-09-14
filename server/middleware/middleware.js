@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/dbconfig');
 
 const superSecret = config.sessionSecret;
-
+let roleTitle;
 module.exports = {
   index: (req, res, next) => {
     const _send = res.send;
@@ -30,6 +30,7 @@ module.exports = {
         } else {
           // Save token on request for  use in routes
           req.decoded = decoded;
+          roleTitle = decoded;
           next();
        }
       });
@@ -42,8 +43,7 @@ module.exports = {
   // Role accessLevel
   accessLevel: (req, res, next) => {
     const role = req.decoded.role;
-    console.log(role);
-    if (role != 'admin') {
+    if (role !== 'admin') {
       res.status(403).json({
         success: false,
         message: 'Access Denied'

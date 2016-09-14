@@ -5,7 +5,7 @@ const expressJWT = require('express-jwt');
 const test = require('../controllers/index');
 const users = require('../controllers/usersCtrl');
 const docs = require('../controllers/docsCtrl');
-
+const roles = require('../controllers/rolesCtrl');
 // Config
 const config = require('./../config/dbconfig');
 
@@ -58,5 +58,14 @@ router.route('/documents/:doc_id')
 // USER  DOCUMENTS
 router.route('/users/:user_id/documents')
   .get(docs.find); // Find all documents belonging to the user.
+
+// ROLES ENDPOINTS
+router.route('/roles')
+  .get(hasAccess.accessLevel, roles.getAll);
+
+router.route('/roles/:role_id')
+  .get(hasAccess.accessLevel, roles.getRole)
+  .put(hasAccess.accessLevel, roles.update)
+  .delete(hasAccess.accessLevel, roles.delete);
 
 module.exports = router;

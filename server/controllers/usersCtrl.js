@@ -74,7 +74,7 @@ module.exports = {
     User
     // Select username from request and find in db
     .findOne({ username: req.body.username })
-    .select('password _id docs')
+    .select('password _id docs role')
     .exec((err, user) => {
       if (err) sendJsonResponse(res, 404, err);
       if (!user) {
@@ -88,7 +88,7 @@ module.exports = {
         const details = ({
           _id: user._id,
           username: req.body.username,
-          role: req.body.role,
+          role: user.role[0].title,
         });
         // Create token
         const token = jwt.sign(details, superSecret, {

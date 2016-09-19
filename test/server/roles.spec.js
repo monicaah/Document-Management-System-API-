@@ -9,53 +9,81 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 
-describe('ROLES', () => {
+describe('Roles', () => {
   let token;
-  let userDetails;
   const user = {
     username: 'Mahaad',
     first: 'Walusimbi',
     last: 'Mahaad',
     email: 'mahaad@gmail.com',
     password: '1234',
-    role: 'admin',
+    role: 'user',
   };
 
+  const admin = {
+    username: 'joy',
+    first: 'Warugu',
+    last: 'joy',
+    email: 'joy@gmail.com',
+    password: '1234',
+    role: 'admin',
+  };
   User.collection.drop();
 
-  beforeEach(done => {
-    chai.request(api)
-    .post('/users')
-    .send(user)
-    .end((err, res) => {
-      userDetails = res.body;
-      token = res.body.token;
-      done();
+  describe('Testing for user access', () => {
+    beforeEach(done => {
+      chai.request(api)
+      .post('/users')
+      .send(user)
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
+    });
+
+    it('GET /roles/: ', done => {
+      chai.request(api)
+      .get('/roles')
+      .set({ Authorization: 'Bearer ' + token })
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.eql('Access Denied');
+        done();
+      });
+    });
+
+    it('GET /users/: ', done => {
+      chai.request(api)
+      .get('/users')
+      .set({ Authorization: 'Bearer ' + token })
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+        expect(res.body.message).to.eql('Access Denied');
+        done();
+      });
     });
   });
 
-  it('GET /roles/: Returns all roles.', done => {
-    chai.request(api)
-    .get('/roles')
-    .set({ Authorization: 'Bearer ' + token })
-    .end((err, res) => {
-      expect(res.status).to.equal(200);
-      expect(res.body).to.be.a('array');
-      expect(res.body).not.to.be.empty;
-      expect(res.body).to.eql(['admin']);
-      done();
+  describe('Testing for admin access', () => {
+    beforeEach(done => {
+      chai.request(api)
+      .post('/users')
+      .send(admin)
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
     });
-  });
-
-  it('UPDATE /roles/<id>: Update document attributes.', done => {
-    done();
-  });
-
-  it('validates that a new role created has a unique title.', done => {
-    done();
-  });
-
-  it('DELETE /roles/<id>: Delete roles.', done => {
-    done();
+    it('GET /roles/: Returns all roles.', done => {
+      chai.request(api)
+      .get('/roles')
+      .set({ Authorization: 'Bearer ' + token })
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.be.a('array');
+        expect(res.body).to.eql(['admin', 'user']);
+        done();
+      });
+    });
   });
 });

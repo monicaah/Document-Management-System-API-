@@ -64,15 +64,6 @@ describe('Users', () => {
         done();
       });
     });
-
-    it('/users/logout: Logs a user out.', done => {
-      chai.request(api)
-      .post('/users/logout')
-      .end((err, res) => {
-        expect(res.header).not.to.have.ownPropertyDescriptor('Authorization');
-        done();
-      });
-    });
   });
 
   describe('GET', () => {
@@ -172,7 +163,7 @@ describe('Users', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
-        expect(res.body.length).to.equal(3);
+        expect(res.body.length).to.equal(4);
         done();
       });
     });

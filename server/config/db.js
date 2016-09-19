@@ -10,6 +10,7 @@ const shutDown = (msg, callback) => {
 };
 // Open mongoose connection
 mongoose.connect(dbConfig.db[app.settings.env]);
+mongoose.Promise = global.Promise;
 
 // Listening for changes
 mongoose.connection.on('connected', () => {

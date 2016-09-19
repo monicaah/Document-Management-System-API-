@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/dbconfig');
 
 const superSecret = config.sessionSecret;
-let roleTitle;
 module.exports = {
   index: (req, res, next) => {
     const _send = res.send;
@@ -24,15 +23,14 @@ module.exports = {
       jwt.verify(token, superSecret, (err, decoded) => {
         if (err) {
           return res.status(403).send({
-            message: 'Faild to authenticate token',
+            message: 'Access Denied',
             err: err,
           });
         } else {
           // Save token on request for  use in routes
           req.decoded = decoded;
-          roleTitle = decoded;
           next();
-       }
+        }
       });
     } else {
       return res.status(403).send({

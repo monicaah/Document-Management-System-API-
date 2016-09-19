@@ -63,9 +63,4 @@ router.route('/users/:user_id/documents')
 router.route('/roles')
   .get(hasAccess.accessLevel, roles.getAll);
 
-router.route('/roles/:role_id')
-  .get(hasAccess.accessLevel, roles.getRole)
-  .put(hasAccess.accessLevel, roles.update)
-  .delete(hasAccess.accessLevel, roles.delete);
-
 module.exports = router;

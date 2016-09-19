@@ -120,4 +120,19 @@ module.exports = {
         return sendJsonResponse(res, 200, docs);
      });
   },
+  all: (req, res) => {
+    const ownerId = req.decoded._id;
+    const limit = req.query.limit;
+    if (limit) {
+      Docs
+        .findById(ownerId)
+        .select('docs')
+        .exec((err, docs) => {
+          if (err) {
+            sendJsonResponse(res, 404, err);
+          }
+          sendJsonResponse(res, 200, docs);
+        });
+    }
+  }
 };

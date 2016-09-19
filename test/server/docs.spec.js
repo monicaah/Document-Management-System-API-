@@ -134,12 +134,6 @@ describe('Documents', () => {
           done();
         });
     });
-
-    it('Documents.all: validates that all documents are returned, limited by a specified number.');
-
-    it('Validate that documents can be fetched in chunks');
-
-    it('Validates that all documents are returned in order of their published dates.');
   });
 
   describe('DELETE', () => {

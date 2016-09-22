@@ -1,6 +1,6 @@
 ## [Document Management System (API)](https://github.com/andela-mkwamboka/Document-Management-System-API-)
 
-https://travis-ci.org/andela-mkwamboka/Document-Management-System-API-.svg?branch=develop
+[![Build Status](https://travis-ci.org/andela-mkwamboka/Document-Management-System-API-.svg?branch=develop)](https://travis-ci.org/andela-mkwamboka/Document-Management-System-API-)
 
 >This document management system manages documents users and user roles.
 
